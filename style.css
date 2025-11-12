@@ -1,62 +1,147 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css');
+
+:root {
+  --accent-color: #4c8dff;
+  --accent-hover: #6ea5ff;
+  --success-color: #4ade80;
+  --error-color: #f87171;
+  --weak-color: #f87171;
+  --medium-color: #facc15;
+  --strong-color: #4ade80;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
 body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background-color: #f5f5f5;
+  font-family: "Pretendard Variable", sans-serif;
+  background: linear-gradient(135deg, #e8f0ff, #f9fbff);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
 }
 
 .container {
   background-color: #fff;
-  width: 350px;
+  width: 360px;
   border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  box-shadow: 0 6px 25px var(--shadow-color);
+  padding: 25px;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.container.success {
+  box-shadow: 0 0 25px rgba(76, 141, 255, 0.5);
+  transform: scale(1.02);
 }
 
 h1 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .form-section {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 12px;
+}
+
+.input-row {
+  display: flex;
+  gap: 6px;
 }
 
 input {
-  padding: 8px;
+  flex: 1;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
 input:focus {
-  border-color: #4CAF50;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(76, 141, 255, 0.3);
+  outline: none;
 }
 
 button {
-  background-color: #4CAF50;
-  color: white;
   border: none;
-  border-radius: 5px;
-  padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.1s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  transform: scale(1.03);
 }
 
+#checkIdBtn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+
+#checkIdBtn:hover {
+  background-color: var(--accent-hover);
+}
+
+.password-row button {
+  background: transparent;
+  font-size: 1.1rem;
+  padding: 0 6px;
+}
+
+#signupBtn {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+#signupBtn:hover {
+  background-color: var(--accent-hover);
+}
+
+#idMessage,
 #message {
   text-align: center;
-  margin-top: 10px;
-  font-size: 14px;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  transition: opacity 0.3s;
+}
+
+#idMessage {
+  margin: -4px 0 4px;
+}
+
+#strengthContainer {
+  height: 5px;
+  background-color: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#strengthBar {
+  height: 100%;
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.success {
+  color: var(--success-color);
+}
+
+.error {
+  color: var(--error-color);
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
