@@ -9,6 +9,14 @@ const message = document.getElementById("message");
 const strengthBar = document.getElementById("strengthBar");
 const container = document.querySelector(".container");
 
+const strengthText = document.createElement("p");
+strengthText.id = "strengthText";
+strengthText.style.textAlign = "center";
+strengthText.style.fontSize = "0.85rem";
+strengthText.style.marginTop = "4px";
+strengthText.style.color = "#666";
+document.getElementById("strengthContainer").after(strengthText);
+
 let idChecked = false;
 
 function isDuplicateId(id) {
@@ -28,10 +36,22 @@ password.addEventListener("input", () => {
   const level = checkPasswordStrength(pw);
   strengthBar.style.width = `${level * 33.3}%`;
 
-  if (level === 1) strengthBar.style.backgroundColor = "var(--weak-color)";
-  else if (level === 2) strengthBar.style.backgroundColor = "var(--medium-color)";
-  else if (level === 3) strengthBar.style.backgroundColor = "var(--strong-color)";
-  else strengthBar.style.width = "0%";
+  if (level === 1) {
+    strengthBar.style.backgroundColor = "var(--weak-color)";
+    strengthText.textContent = "비밀번호 강도 : 약함";
+    strengthText.style.color = "var(--weak-color)";
+  } else if (level === 2) {
+    strengthBar.style.backgroundColor = "var(--medium-color)";
+    strengthText.textContent = "비밀번호 강도 : 보통";
+    strengthText.style.color = "var(--medium-color)";
+  } else if (level === 3) {
+    strengthBar.style.backgroundColor = "var(--strong-color)";
+    strengthText.textContent = "비밀번호 강도 : 강함";
+    strengthText.style.color = "var(--strong-color)";
+  } else {
+    strengthBar.style.width = "0%";
+    strengthText.textContent = "";
+  }
 });
 
 togglePwBtn.addEventListener("click", () => {
@@ -48,7 +68,7 @@ checkIdBtn.addEventListener("click", () => {
     showMessage(idMessage, "이미 존재하는 아이디입니다 ❌", "error");
     idChecked = false;
   } else {
-    showMessage(idMessage, "사용 가능한 아이디입니다 ✅", "success");
+    showMessage(idMessage, "사용 가능한 아이디입니다 ✅", "success", false);
     idChecked = true;
   }
 });
@@ -71,23 +91,29 @@ signupBtn.addEventListener("click", () => {
   showMessage(message, "회원가입 성공!", "success");
   container.classList.add("success");
 
+  idMessage.textContent = "";
+
   idChecked = false;
   userId.value = "";
   password.value = "";
   strengthBar.style.width = "0%";
+  strengthText.textContent = "";
   togglePwBtn.textContent = "👁";
-  idMessage.textContent = "";
-
   setTimeout(() => container.classList.remove("success"), 2000);
+
   console.log(users);
 });
 
-function showMessage(target, text, type) {
+function showMessage(target, text, type, fadeOut = true) {
   target.textContent = text;
   target.className = type;
-  if (type === "success") {
-    target.style.animation = "fadeOut 2s forwards";
-  } else {
-    target.style.animation = "none";
+
+  target.style.opacity = "1";
+  target.style.animation = "none";
+
+  if (fadeOut && type === "success" && target === message) {
+    setTimeout(() => {
+      target.style.animation = "fadeOut 5s forwards";
+    }, 10);
   }
 }
